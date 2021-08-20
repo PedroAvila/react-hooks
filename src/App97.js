@@ -1,5 +1,4 @@
-
-import React, { useState } from 'react'
+import React, { Component, useState } from 'react'
 
 
 
@@ -31,24 +30,49 @@ const Header = () => {
       )
 }
 
-
 const App = () => {
-    const [ isActive, setActive ] = useState(false)
 
-    const toggle = () => {
-        setActive(!isActive)
-    }
+    const [ clicks, setClicks ] = useState( 0 )
+    
 
     return (
         <div>
-            { isActive && <Header /> }
-            <button onClick={ toggle }>
-                { isActive ? 'Desactivar' : 'Activar' }
+            <Header />
+            <button onClick={ () => {
+                setClicks( clicks + 1 )
+            } }>
+                Clicks ({ clicks })
             </button>
         </div>
     )
 }
 
+// class App extends Component {
+//     state = {
+//         clicks: 0
+//     }
 
+
+// addClicks = () => {
+//     this.setState( state => ({
+//         clicks: state.clicks + 1
+//     }) )
+// }
+
+// render () {
+//     const { clicks } = this.state
+//     return (
+        
+//     )
+// }
+
+// }
 
 export default App
+
+
+
+
+
+
+
