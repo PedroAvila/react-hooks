@@ -2,7 +2,6 @@
 import React, { useState } from 'react'
 
 
-
 const Header = () => {
     const subtitleStyles = {
         fontWeight: "bold"
@@ -33,21 +32,50 @@ const Header = () => {
 
 
 const App = () => {
-    const [ isActive, setActive ] = useState(false)
 
-    const toggle = () => {
-        setActive(!isActive)
+    const [ state, setState ] = useState({
+        clicks: 0,
+        title: ''
+    })
+
+    const merge = (nextState) => {
+        setState({
+            ...state,
+            ...nextState
+        })
+    }
+
+    const addClick = () => {
+        merge({
+            ...state,
+            clicks: state.clicks + 1
+        })
+    }
+
+    const handleInput = ( e ) => {
+        const title = e.target.value
+
+        merge({ 
+            title 
+        })
     }
 
     return (
         <div>
-            { isActive && <Header /> }
-            <button onClick={ toggle }>
-                { isActive ? 'Desactivar' : 'Activar' }
+            <Header />
+            <input 
+                type="text"
+                value={ state.title }
+                onChange={ handleInput }
+            />
+            <button onClick={ addClick }>
+                Clicks ({ state.clicks })
             </button>
+            <h3>{ state.title }</h3>
         </div>
     )
 }
+
 
 
 
