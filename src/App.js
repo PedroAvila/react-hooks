@@ -1,6 +1,5 @@
-
-import React, { useState, useEffect, useRef } from "react"
-
+import React, { useState, useEffect, useRef } from "react";
+import { useDebounce } from "use-debounce";
 
 const Header = () => {
     const subtitleStyles = {
@@ -33,26 +32,18 @@ const Header = () => {
 const App = () => {
 
     const [ name, setName ] = useState('')
-
-
+    const [ search ] = useDebounce( name, 1000 )
     const [ products, setProducts ] = useState([])
 
-    const entrada = useRef()
-
-
+    //const entrada = useRef()
 
     useEffect( ()=> {
-        // debounce
-        setTimeout( () => {
-            if (name === entrada.current.value) {
-                // Solicitud HTTP
-                fetch( 'https://universidad-react-api-test.luxfenix.vercel.app/products?name=' + name )
-                    .then( res => res.json() )
-                    .then( data => setProducts( data.products ) )             
-            }
-        }, 600)
+       // Solicitud HTTP
+       fetch( 'https://universidad-react-api-test.luxfenix.vercel.app/products?name=' + name )
+       .then( res => res.json() )
+       .then( data => setProducts( data.products ) )             
 
-    }, [ name ] )
+    }, [ search ] )
 
     const handleInput = ( e ) => {
         setName( e.target.value )
@@ -64,7 +55,7 @@ const App = () => {
             <input
                  type="text"
                  onChange={ handleInput } 
-                 ref={ entrada }
+                 
             />
             
             <ul>
