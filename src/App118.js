@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useDebugValue } from 'react';
 
 const Header = () => {
     const subtitleStyles = {
@@ -31,6 +31,8 @@ const Header = () => {
 const useSizes = () =>{
     const [ width, setWith ] = useState(window.innerWidth)
     const [ height, setHeight ] = useState(window.innerHeight)
+
+    useDebugValue('PrimerHook')
 
     // Agregar listener
     const handleResize = () => {
